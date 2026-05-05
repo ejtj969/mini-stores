@@ -1,8 +1,7 @@
-.header {
+header {
   font-size: 40px;
 }
 
-.card{
-  border: solid 1px red;
-  margin: 20px 10px 20px;
+main{
+  display: flex;
 }
