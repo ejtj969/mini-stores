@@ -1,7 +1,16 @@
 header {
-  font-size: 40px;
+  font-size: 20px;
+  color: white;
+  margin-top: 20px;
 }
 
 main{
   display: flex;
+  flex-wrap: wrap;
+  margin-top: 20px;
+  gap: 20px;
+}
+
+body {
+  padding-left: 200px;
 }
