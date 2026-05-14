@@ -1,7 +1,7 @@
 import './data/style_variables.css'
 import styles from './App.module.css'
 import {AppCard} from './AppCard/AppCard'
-import {apps} from './data/variables'
+import {apps, unique_tags} from './data/variables'
 import {useEffect, useState} from 'react'
 
 
@@ -12,11 +12,13 @@ export default function App() {
 
   let [check, setCheck] = useState(false)
 
+  let [selection, setSelection] = useState('none')
+
   useEffect(() => {
 
     let filtered = apps
     
-    if (text !== ''){
+    if (text !== '') {
       filtered = filtered.filter(app => {
         return app.title.toLowerCase().includes(text.toLowerCase()) || app.tags.some(tag => tag.toLowerCase().includes(text.toLowerCase()))
       })
@@ -25,7 +27,13 @@ export default function App() {
       setSelectedApps(apps)
     }
 
-    if (check){
+    if (selection !== 'none') {
+      filtered = filtered.filter(app => {
+        return app.tags.includes(selection)
+      })
+    }
+
+    if (check) {
       filtered = filtered.filter(app => {
         return app.tags.includes('free')
       })
@@ -33,7 +41,7 @@ export default function App() {
 
     setSelectedApps(filtered)
 
-  }, [text, check]);
+  }, [text, check, selection]);
 
   let inputHandler = function (event: React.ChangeEvent<HTMLInputElement>) {
     let text = event.currentTarget.value
@@ -43,6 +51,11 @@ export default function App() {
   let checkHandler = function (event: React.ChangeEvent<HTMLInputElement>) {
     let check = event.currentTarget.checked
     setCheck(check)
+  }
+
+  let selectHandler = function (event: React.ChangeEvent<HTMLSelectElement>) {
+    let selected = event.currentTarget.value
+    setSelection(selected)
   }
 
 
@@ -55,6 +68,12 @@ export default function App() {
       <div>
         <input type='text' onChange={inputHandler}/>
         <input type='checkbox' onChange={checkHandler}/>
+        <select onChange={selectHandler}>
+          <option>none</option>
+          {unique_tags.map((tag: string) => 
+          <option>{tag}</option>)}
+        </select>
+        <p>{selection}</p>
       </div>
 
       <main>
