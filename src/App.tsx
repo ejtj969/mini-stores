@@ -14,7 +14,7 @@ export default function App() {
   let [apps, setApps] = useState<AppsTypes[]>([])
 
   async function getData() {
-    let response = await fetch("https://ministor.ru/api/apps?q=&categoryId=&platform=")
+    let response = await fetch("https://ministor.ru/api/apps")
     let data = await response.json()
     setApps(data.items)
   }
